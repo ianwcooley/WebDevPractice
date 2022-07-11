@@ -22,42 +22,50 @@ class Vec {
 
 /* groups */
 class Group {
-   constructor() {
+    constructor() {
+       this.members = [];
+    }
+    add(element) {
+        if (!this.has(element))
+            this.members.push(element);
+    }
+    has (element) {
+        return this.members.includes(element);
+    }
+    delete (element) {
+        let i = this.members.indexOf(element);
+        if (i >= 0)
+            this.members.splice(i,1);
+    }
+    static from(iterable) {
+        let group = new Group();
+        for (let item of iterable)
+            if (!group.has(item))
+                group.add(item);
 
-   }
+        return group;
+    }
 }
 
-// let group = Group.from([10, 20]);
-// console.log(group.has(10));
-// // → true
-// console.log(group.has(30));
-// // → false
-// group.add(10);
-// group.delete(10);
-// console.log(group.has(10));
-// // → false
+/* iterable groups */
+class GroupIterator {
+    constructor(group) {
+        this.i = 0;
+        this.group = group;
+    }
 
-const toStringSymbol = Symbol("toString");
-Array.prototype[toStringSymbol] = function() {
-  return `${this.length} cm of blue yarn`;
+    next() {
+        if (this.i == this.group.members.length) return {done: true};
+        let value = this.group.members[this.i++];
+        return {value, done: false};
+    }
+}
+
+Group.prototype[Symbol.iterator] = function() {
+    return new GroupIterator(this);
 };
 
-console.log([1, 2].toString());
-// → 1,2
-console.log([1, 2][toStringSymbol]());
-// → 2 cm of blue yarn
-
-let stringObject = {
-    [toStringSymbol]() { return "a jute rope"; }
-  };
-  console.log(stringObject[toStringSymbol]());
-  // → a jute rope
-
-  let okIterator = "OK"[Symbol.iterator]();
-console.log(okIterator.next());
-// → {value: "O", done: false}
-console.log(okIterator.next());
-// → {value: "K", done: false}
-console.log(okIterator.next());
-// → {value: undefined, done: true}
-
+/* borrowing a method */
+let map = {one: true, two: true, hasOwnProperty: true};
+console.log(Object.prototype.hasOwnProperty.call(map, "one"));
+// → true

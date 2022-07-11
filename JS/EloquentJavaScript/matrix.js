@@ -31,8 +31,8 @@ class Matrix {
 }
 
 /* test */
-let matrix = new Matrix(10, 10, (x,y) => (x == y ? 1 : 0));
-matrix.print();
+// let matrix = new Matrix(10, 10, (x,y) => (x == y ? 1 : 0));
+// matrix.print();
 
 /* matrix iterator */
 class MatrixIterator {
@@ -61,10 +61,10 @@ Matrix.prototype[Symbol.iterator] = function() {
     return new MatrixIterator(this);
 };
   
-// let matrix = new Matrix(2, 2, (x, y) => `value ${x},${y}`);
-// for (let {x, y, value} of matrix) {
-//     console.log(x, y, value);
-// }
+let matrix = new Matrix(2, 2, (x, y) => `value ${x},${y}`);
+for (let {x, y, value} of matrix) {
+    console.log(x, y, value);
+}
 // → 0 0 value 0,0
 // → 1 0 value 1,0
 // → 0 1 value 0,1

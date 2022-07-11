@@ -9,8 +9,11 @@ class Rabbit {
   
 let killerRabbit = new Rabbit("killer");
 let blackRabbit = new Rabbit("black");
+let greenRabbit = new Rabbit("green");
 
 Rabbit.prototype.teeth = "small";
+
+console.log(greenRabbit.teeth);
 
 // console.log(killerRabbit.teeth);
 // // → small
