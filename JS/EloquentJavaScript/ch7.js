@@ -137,6 +137,9 @@ function routeRobot(state, memory) {
 runRobot(VillageState.random(), routeRobot, mailRoute);
 // ENDTEST
 
+// findRoute: through graph from "from" to "to"
+// looks at all places next to "at", and if one of them is "to", returns route.
+// else, adds place and route to it to "work", if haven't reached the place yet.
 function findRoute(graph, from, to) {
     let work = [{at: from, route: []}];
     for (let i = 0; i < work.length; i++) {
@@ -150,6 +153,9 @@ function findRoute(graph, from, to) {
     }
 }
 
+// goalOrientedRobot: looks at next parcel on list, and follows route 
+// to its place or its address, dropping off and/or picking up other
+// packages along the way as it moves.
 function goalOrientedRobot({place, parcels}, route) {
     if (route.length == 0) {
         let parcel = parcels[0];
@@ -182,5 +188,20 @@ function compareRobots(robot1, memory1, robot2, memory2) {
     console.log(`robot 2 average: ${avg2} turns`);
 }
 // TEST
-compareRobots(goalOrientedRobot, [], randomRobot);
+compareRobots(goalOrientedRobot, [], efficientRobot, []);
 // ENDTEST
+
+/* robot efficiency */
+function efficientRobot({place, parcels}, route) {
+    for (let parcel of parcels) {
+        let newRoute;
+        if (parcel.place != place) {
+            newRoute = findRoute(roadGraph, place, parcel.place);
+        } else {
+            newRoute = findRoute(roadGraph, place, parcel.address);
+        }
+        if (route.length == 0 || newRoute.length < route.length)
+            route = newRoute;
+    }
+    return {direction: route[0], memory: route.slice(1)};
+}
