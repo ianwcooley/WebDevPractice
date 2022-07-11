@@ -172,6 +172,11 @@ function goalOrientedRobot({place, parcels}, route) {
 // runRobot(VillageState.random(), goalOrientedRobot, []);
 // // ENDTEST
 
+
+
+
+
+
 /* EXERCISE SOLUTIONS */
 
 /* compare robots */
@@ -204,4 +209,30 @@ function efficientRobot({place, parcels}, route) {
             route = newRoute;
     }
     return {direction: route[0], memory: route.slice(1)};
+}
+
+/* persistent group */
+class PGroup {
+    constructor() {
+       this.members = [];
+    }
+    add(element) {
+        let newGroup = new PGroup();
+        if (!this.has(element))
+            newGroup.members = this.members.concat(element);
+        else
+            newGroup.members = this.members.slice();
+        return newGroup;
+    }
+    has (element) {
+        return this.members.includes(element);
+    }
+    delete (element) {
+        let newGroup = new PGroup();
+        newGroup.members = this.members.slice();
+        let i = this.members.indexOf(element);
+        if (i >= 0)
+            newGroup.members.splice(i,1);
+        return newGroup;
+    }
 }
