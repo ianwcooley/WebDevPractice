@@ -13,8 +13,6 @@ let greenRabbit = new Rabbit("green");
 
 Rabbit.prototype.teeth = "small";
 
-console.log(greenRabbit.teeth);
-
 // console.log(killerRabbit.teeth);
 // // → small
 // killerRabbit.teeth = "long, sharp, and bloody";
