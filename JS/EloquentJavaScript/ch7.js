@@ -180,12 +180,29 @@ function goalOrientedRobot({place, parcels}, route) {
 /* EXERCISE SOLUTIONS */
 
 /* compare robots */
+function compareBots(robots, memories) {
+    let numberOfTasks = 100;
+    let numberOfBots = robots.length;
+    let avgs = new Array(numberOfBots).fill(0);
+    let i, j;
+    for (i = 0; i < numberOfTasks; i++) {
+        let state = VillageState.random();
+        for (j = 0; j < numberOfBots; j++) {
+            avgs[j] += runRobot(state, robots[j], memories[j]);
+        }
+    }
+    avgs = avgs.map(a => a / numberOfTasks);
+    avgs.forEach((avg, i) => { 
+        console.log(`robot ${i+1} average: ${avg} turns`); 
+    });
+}
 function compareRobots(robot1, memory1, robot2, memory2) {
     let numberOfTasks = 100;
     let avg1 = 0, avg2 = 0;
     for (let i = 0; i < numberOfTasks; i++) {
-        avg1 += runRobot(VillageState.random(), robot1, memory1);
-        avg2 += runRobot(VillageState.random(), robot2, memory2);
+        let state = VillageState.random();
+        avg1 += runRobot(state, robot1, memory1);
+        avg2 += runRobot(state, robot2, memory2);
     }
     avg1 /= numberOfTasks;
     avg2 /= numberOfTasks;
@@ -193,8 +210,10 @@ function compareRobots(robot1, memory1, robot2, memory2) {
     console.log(`robot 2 average: ${avg2} turns`);
 }
 // TEST
-compareRobots(goalOrientedRobot, [], efficientRobot, []);
+// compareRobots(goalOrientedRobot, [], efficientRobot, []);
 // ENDTEST
+compareBots([randomRobot, routeRobot, goalOrientedRobot, efficientRobot], 
+    [[],mailRoute,[],[]]);
 
 /* robot efficiency */
 function efficientRobot({place, parcels}, route) {
