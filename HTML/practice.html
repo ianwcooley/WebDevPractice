@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -15,6 +16,17 @@
     <!-- <script src="../JS/EloquentJavaScript/rabbit.js"></script> -->
     <!-- <script src="../JS/EloquentJavaScript/temperature.js"></script> -->
     <!-- <script src="../JS/EloquentJavaScript/maps.js"></script> -->
+    <style>
+        .trail { /* className for the trail elements */
+          position: absolute;
+          height: 6px; width: 6px;
+          border-radius: 3px;
+          background: teal;
+        }
+        body {
+          height: 300px;
+        }
+    </style>
 </head>
 <body>
     <!-- <p style="width: 100%;">
@@ -27,6 +39,11 @@
 <p>A paragraph with <span>one</span>, <span>two</span>
   spans.</p>
   <p id="balloon">🎈</p>
+  <tab-panel>
+    <div data-tabname="one">Tab one</div>
+    <div data-tabname="two">Tab two</div>
+    <div data-tabname="three">Tab three</div>
+  </tab-panel>
 
     <script src="../JS/EloquentJavaScript/ch15.js"></script>
 </body>
