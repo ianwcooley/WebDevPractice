@@ -13,6 +13,8 @@ for (i = 0; i < size; i++) {
     console.log(str);
 }
 
+
+
 // Alternatively,
 
 let row = '#';
@@ -44,6 +46,14 @@ do {
 //     }
 // }
 
+// Because copilot is awesome, here is a better solution:
+for (let i = 1; i <= 100; i++) {
+    let output = '';
+    if (i % 3 === 0) output += 'Fizz';
+    if (i % 5 === 0) output += 'Buzz';
+    console.log(output || i);
+}
+
 // /* chessboard */
 // size = 20;
 // str = "";
@@ -57,3 +67,20 @@ do {
 //     console.log(str);
 //     str = "";
 // }
+
+
+// Wow, copilot is so cool. This solution reminds me of
+// the formula for a determinant, in the way it uses
+// (i + j) % 2 to determine the character to print.
+let boardLength = 8;
+for (let i = 0; i < boardLength; i++) {
+    let row = '';
+    for (let j = 0; j < boardLength; j++) {
+        if ((i + j) % 2 === 0) {
+            row += ' ';
+        } else {
+            row += '#';
+        }
+    }
+    console.log(row);
+}
