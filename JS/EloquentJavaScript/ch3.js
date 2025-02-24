@@ -8,6 +8,7 @@ function min(a, b) {
     return a < b ? a : b;
 }
 
+
 /* isEven */
 function isEven(n) {
     if (n === 0)
@@ -29,4 +30,11 @@ function countChar(str, c) {
         if (str[i] === c)
             count += 1;
     return count;
+}
+
+// Copilot's version - pretty sure this is more time-costly,
+// but negligibly so as they're both surely O(n) and 
+// it's neat and elegant:
+function countChar2(str, c) {
+    return str.split('').filter(char => char === c).length;
 }
