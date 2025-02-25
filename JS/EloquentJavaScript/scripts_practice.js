@@ -1,21 +1,24 @@
-let Ahom = SCRIPTS.find(n => n.name == "Ahom")
-console.log(Ahom);
+function renderScripts(scripts) {
+    scripts.forEach(script => {
+        // Create an <h2> element for the script name
+        const h2 = document.createElement('h2');
+        h2.textContent = script.name;
+        document.body.appendChild(h2);
 
-let AhomCharCodes = flatten(Ahom.ranges.map(expand));
-console.log(AhomCharCodes);
-for (let i = 0; i < AhomCharCodes.length; i++)
-    console.log("&#" + AhomCharCodes[i] + ";</p>");
-
-
-
-/* helper functions */
-function expand([start, finish]) {
-    let ret = [];
-    for (let i = start; i < finish; i++)
-        ret.push(i);
-    return ret;
+        // Create a <p> element for the characters
+        const p = document.createElement('p');
+        const characters = script.ranges.flatMap(([from, to]) => {
+            let chars = [];
+            for (let i = from; i < to; i++) {
+                chars.push(String.fromCodePoint(i));
+            }
+            return chars;
+        }).join(' ');
+        p.textContent = characters;
+        document.body.appendChild(p);
+    });
 }
 
-function flatten(arr) {
-    return arr.reduce((a,b) => a.concat(b));
-}
+// Call the function with the SCRIPTS array
+renderScripts(SCRIPTS);
+
