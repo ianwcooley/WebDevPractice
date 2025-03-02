@@ -21,6 +21,15 @@
     <h1>Chapter 15 - Eloquent JavaScript</h1>
     <h2>Balloon</h2>
     <p id="balloon">🎈</p>
+    <h2>Mouse Trail</h2>
+    <p>Move your mouse around the screen to see the trail</p>
+    <h2>Tab Panel</h2>
+    <tab-panel>
+        <div data-tabname="one">Tab one</div>
+        <div data-tabname="two">Tab two</div>
+        <div data-tabname="three">Tab three</div>
+    </tab-panel>
+    
     <script>
         // Balloon Script
         document.addEventListener("keydown", function(event) {
@@ -49,6 +58,7 @@
         for (let i = 0; i < 12; i++) {
             let div = document.createElement("div");
             div.className = "trail";
+            div.style.pointerEvents = "none";
             document.body.appendChild(div);
             trail.push(div);
         }
@@ -61,6 +71,33 @@
             trailElement.style.top = (event.pageY) + "px";
             currentIndex = (currentIndex + 1) % trail.length;
         });
+
+        // Tab Panel Script
+        function asTabs(node) {
+            let tabs = Array.from(node.children).map(child => {
+                let button = document.createElement("button");
+                button.textContent = child.getAttribute("data-tabname");
+                let tab = { button, node: child };
+                button.addEventListener("click", () => selectTab(tab));
+                return tab;
+            });
+
+            let tabList = document.createElement("div");
+            for (let { button } of tabs) tabList.appendChild(button);
+            node.insertBefore(tabList, node.firstChild);
+
+            function selectTab(selectedTab) {
+                for (let tab of tabs) {
+                    let selected = tab === selectedTab;
+                    tab.node.style.display = selected ? "" : "none";
+                    tab.button.style.background = selected ? "lightblue" : "";
+                }
+            }
+
+            selectTab(tabs[0]);
+        }
+
+        asTabs(document.querySelector("tab-panel"));
     </script>
 
 </body>
