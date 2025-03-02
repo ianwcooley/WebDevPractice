@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 15 - Eloquent JavaScript</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <h1>Chapter 15 - Eloquent JavaScript</h1>
+    <h2>Balloon</h2>
+    <p id="balloon">🎈</p>
+    <script>
+        document.addEventListener("keydown", function(event) {
+            const balloon = document.querySelector("#balloon");
+            let size = parseFloat(window.getComputedStyle(balloon).fontSize);
+
+            if (event.key === "ArrowUp") {
+                size *= 1.1;
+                console.log("up", size);
+
+            } else if (event.key === "ArrowDown") {
+                size = Math.max(size * 0.9, 1);
+                console.log("down", size)
+            }
+
+            if (size > 100) {
+                balloon.textContent = "💥";
+                document.removeEventListener("keydown", arguments.callee);
+            } else {
+                balloon.style.fontSize = size + "px";
+            }
+        });
+    </script>
+
+</body>
+</html>
