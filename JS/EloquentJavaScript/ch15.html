@@ -43,7 +43,7 @@
                 balloon.style.fontSize = size + "px";
             }
         });
-        
+
         // Mouse Trail Script
         let trail = [];
         for (let i = 0; i < 12; i++) {
@@ -57,8 +57,8 @@
 
         document.addEventListener("mousemove", event => {
             let trailElement = trail[currentIndex];
-            trailElement.style.left = (event.pageX - 3) + "px";
-            trailElement.style.top = (event.pageY - 3) + "px";
+            trailElement.style.left = (event.pageX) + "px";
+            trailElement.style.top = (event.pageY) + "px";
             currentIndex = (currentIndex + 1) % trail.length;
         });
     </script>
